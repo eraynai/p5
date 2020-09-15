@@ -6,6 +6,7 @@ let maxAngle;
 let cX, cY, cV;
 let botLevel;
 let pScore, cScore;
+let pName, cName;
 let cat;
 
 function preload(){
@@ -34,6 +35,12 @@ function setup(){
 
     maxAngle = 75 / 180 * PI;
     botLevel = 0.1;
+
+    pScore = 0;
+    cScore = 0;
+
+    pName = "Player";
+    cName = "AI";
 }
 
 function draw(){
@@ -126,16 +133,28 @@ function draw(){
     if(bX - bD/2 < 0){ //left wall
         vX *= -1;
         bX = bD/2;
+        //computer score increases
+        cScore++;
     }
     if(bX + bD/2 >= width) { //right wall
         vX *= -1;
         bX = width - bD/2;
+        //player score increases
+        pScore++;
     } 
 
 
 
     //draw an ellipse
     ellipse(bX, bY, bD);
+
+    //change the text size
+    textSize(12);
+    text(pName, 0.30 * width, 0.05 * height);
+    textSize(18);
+    text(pScore, 0.40*width, 0.10*height);
+    text(cScore, 0.60*width, 0.10*height);
+
     
 }
 
