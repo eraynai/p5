@@ -1,15 +1,22 @@
+
+//variables
 let pX, pY, pW, pH;
 let bX, bY, bD, vX, vY;
 let maxAngle;
 let cX, cY, cV;
 let botLevel;
 let pScore, cScore;
+let cat;
+
+function preload(){
+    cat = loadImage('img/cat.png');
+}
 
 function setup(){
-    createCanvas(600, 400)
+    createCanvas(1000, 800);
     pX = 0;
     pY = height/2;
-    pW = 20;
+    pW = 100;
     pH = 100;
     pV = 0; //Paddle's Velocity
 
@@ -54,7 +61,7 @@ function draw(){
     }
     //fill the area with color 
     fill(255);
-    rect(pX, pY - pH/2, pW, pH);
+    image(cat, pX, pY - pH/2, pW, pH);
 
     //computer
     //computer controls their movement
@@ -133,11 +140,11 @@ function draw(){
 }
 
 function keyPressed(){
-    if(keyCode === LEFT_ARROW){
+    if(key === 'a'){
         console.log("help left");
         pV = -4;
     }
-    if(keyCode === RIGHT_ARROW){
+    if(key === 's'){
         console.log("help right");
         pV = 4;
     }
