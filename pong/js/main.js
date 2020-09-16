@@ -6,8 +6,8 @@ let maxAngle;
 let cX, cY, cV;
 let botLevel;
 let pScore, cScore;
-let pName, cName;
 let cat;
+
 
 function preload(){
     cat = loadImage('img/cat.png');
@@ -15,6 +15,8 @@ function preload(){
 
 function setup(){
     createCanvas(1000, 800);
+    let title = createElement('h1', 'This is the End');
+    title.addClass('firstTitle');
     pX = 0;
     pY = height/2;
     pW = 100;
@@ -149,8 +151,7 @@ function draw(){
     ellipse(bX, bY, bD);
 
     //change the text size
-    textSize(12);
-    text(pName, 0.30 * width, 0.05 * height);
+
     textSize(18);
     text(pScore, 0.40*width, 0.10*height);
     text(cScore, 0.60*width, 0.10*height);
