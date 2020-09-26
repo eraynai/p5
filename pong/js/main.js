@@ -12,7 +12,7 @@ let restartGame = true;
 let gameEnd;
 let gameStart = true;
 let computerWin = `Jeb has won! Press the "r" key to Play Again`;
-let userWin = "The user has won!, Press the r key to Play Again";
+let userWin = `Jobb has won! Press the "r" key to Play Again`;
 let intro = "Welcome to Jobb vs Jeb";
 let intro2 = "The First One to Score 10 Wins the Game";
 let intro3 = `To Start Press the "S" to Start the Game`;
@@ -185,7 +185,7 @@ function draw() {
     if (cScore > pScore) {
       text(computerWin, 0.5 * width, 0.4 * height);
     } else {
-      text(userWin, 0.5 * width, 0.4 * height);
+      text(userWin, 0.2 * width, 0.4 * height);
     }
   }
 
@@ -212,7 +212,7 @@ function startGame() {
 
 //end game state
 function endGame() {
-  if (cScore === 10 || pScore === 10) {
+  if (cScore === 1 || pScore === 1) {
     gameEnd = true;
     freeze = false;
     vX = 0;
