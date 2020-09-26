@@ -9,11 +9,14 @@ let creature1, creature2;
 let slider;
 let freeze = true;
 let restartGame = true;
-let gameEnd = false;
-let startGame = true;
+let gameEnd;
+let gameStart = true;
 let computerWin = `Jeb has won! Press the "r" key to Play Again`;
 let userWin = "The user has won!, Press the r key to Play Again";
-
+let intro = "Welcome to Jobb vs Jeb";
+let intro2 = "The First One to Score 10 Wins the Game";
+let intro3 = `To Start Press the "S" to Start the Game`;
+let intro4 = `You Play Jobb, so Press "A" and "L" to Move Them Up and Down`;
 
 /*function that loads images into the game */
 function preload() {
@@ -23,16 +26,12 @@ function preload() {
 
 function setup() {
   createCanvas(innerWidth, 0.9 * innerHeight);
-  let title = createElement("h1", "Instructions on How To Play:");
-  title.addClass("opening_title");
+
   restart();
 
   maxAngle = (75 / 180) * PI;
   botLevel = 0.1;
-
- 
 }
-
 
 //Restart the Game
 function restart() {
@@ -51,18 +50,20 @@ function restart() {
   bD = height / 15; //ball's diameter
 
   vMax = 6; //max velocity
-  vX = -vMax;
-  vY = vMax;
+  /* vX = -vMax;
+  vY = vMax;*/
+  vX = 0;
+  vY = 0;
 
   pScore = 0;
   cScore = 0;
   pName = "Jobb";
   cName = "Jeb";
   gameEnd = false;
-  startGame = true;
 }
 
 function draw() {
+  startGame();
   endGame();
   background(253, 187, 45);
   //color of the line
@@ -72,14 +73,14 @@ function draw() {
   //line(windowWidth/2, 0, windowWidth/2, height);
 
   //draw dash lines for the net on the board
-  for (let i = 0; i < height / 10; i++) {
+  /*for (let i = 0; i < height / 10; i++) {
     line(
       width / 2,
       (height / 10) * i,
       width / 2,
       height / 20 + (height / 10) * i
     );
-  }
+  }*/
 
   //player
   //update panel's position
@@ -165,39 +166,53 @@ function draw() {
       pScore++;
     }
   }
-//Only draws when the game has ended
+
+  //Only draw when the game starts
+  if (gameStart) {
+    textSize(27);
+    if (cScore === 0 && pScore === 0) {
+      text(intro, 0.42 * width, 0.3 * height);
+      text(intro2, 0.34 * width, 0.35 * height);
+      text(intro3, 0.35 * width, 0.4 * height);
+      text(intro4, 0.25 * width, 0.45 * height);
+    } else if (cScore === 0 && pScore === 0 && gameStart === false) {
+      text();
+    }
+  }
+  //Only draws when the game has ended
   if (gameEnd) {
     textSize(24);
-    if(cScore > pScore){
-        text(computerWin, 0.5 * width, 0.4 * height);
+    if (cScore > pScore) {
+      text(computerWin, 0.5 * width, 0.4 * height);
+    } else {
+      text(userWin, 0.5 * width, 0.4 * height);
     }
-    else{
-        text(userWin, 0.5 * width, 0.4 * height);
-    }
-    
   }
 
   //draw an ellipse
-  fill(0)
+  fill(0);
   stroke(0);
   ellipse(bX, bY, bD);
-  
 
   //change the text size
 
   textSize(24);
-  
+
   text(pScore, 0.4 * width, 0.1 * height);
   text(pName, 0.39 * width, 0.05 * height);
   text(cScore, 0.6 * width, 0.1 * height);
   text(cName, 0.59 * width, 0.05 * height);
 }
 
-
+function startGame() {
+  if (cScore === 0 && pScore === 0) {
+    freeze = false;
+  }
+}
 
 //end game state
 function endGame() {
-  if (cScore === 2 || pScore === 2) {
+  if (cScore === 10 || pScore === 10) {
     gameEnd = true;
     freeze = false;
     vX = 0;
@@ -206,27 +221,25 @@ function endGame() {
 }
 
 function keyPressed() {
-  if (key === "b" && freeze === true) {
-    vX = 0;
-    vY = 0;
-    freeze = false;
-  }
-  if (key === "c" && freeze === false) {
+  
+  if (key === "s" && freeze === false) {
     vX = -vMax;
     vY = vMax;
     freeze = true;
+    gameStart = false;
   }
 
   if (gameEnd === true && key === "r") {
     restart();
-    
+    vX = -vMax;
+    vY = vMax;
   }
 
   if (key === "a") {
     console.log("help left");
     pV = -4;
   }
-  if (key === "s") {
+  if (key === "l") {
     console.log("help right");
     pV = 4;
   }
