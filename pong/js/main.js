@@ -33,35 +33,6 @@ function setup() {
   botLevel = 0.1;
 }
 
-//Restart the Game
-function restart() {
-  pX = 0;
-  pY = height / 2;
-  pW = 100;
-  pH = 100;
-  pV = 0; //Paddle's Velocity
-
-  cX = width - pW;
-  cY = height / 2;
-  cV = 0;
-
-  bX = width / 2;
-  bY = height / 2;
-  bD = height / 15; //ball's diameter
-
-  vMax = 6; //max velocity
-  /* vX = -vMax;
-  vY = vMax;*/
-  vX = 0;
-  vY = 0;
-
-  pScore = 0;
-  cScore = 0;
-  pName = "Jobb";
-  cName = "Jeb";
-  gameEnd = false;
-}
-
 function draw() {
   startGame();
   endGame();
@@ -72,16 +43,7 @@ function draw() {
   strokeWeight(0);
   //line(windowWidth/2, 0, windowWidth/2, height);
 
-  //draw dash lines for the net on the board
-  /*for (let i = 0; i < height / 10; i++) {
-    line(
-      width / 2,
-      (height / 10) * i,
-      width / 2,
-      height / 20 + (height / 10) * i
-    );
-  }*/
-
+ 
   //player
   //update panel's position
   pY += pV;
@@ -175,9 +137,9 @@ function draw() {
       text(intro2, 0.34 * width, 0.35 * height);
       text(intro3, 0.35 * width, 0.4 * height);
       text(intro4, 0.25 * width, 0.45 * height);
-    } else if (cScore === 0 && pScore === 0 && gameStart === false) {
+    } /*else if (cScore === 0 && pScore === 0 && gameStart === false) {
       text();
-    }
+    }*/
   }
   //Only draws when the game has ended
   if (gameEnd) {
@@ -204,6 +166,34 @@ function draw() {
   text(cName, 0.59 * width, 0.05 * height);
 }
 
+//Restart the Game
+function restart() {
+  pX = 0;
+  pY = height / 2;
+  pW = 100;
+  pH = 100;
+  pV = 0; //Paddle's Velocity
+
+  cX = width - pW;
+  cY = height / 2;
+  cV = 0;
+
+  bX = width / 2;
+  bY = height / 2;
+  bD = height / 15; //ball's diameter
+
+  vMax = 6; //max velocity
+  vX = 0;
+  vY = 0;
+
+  pScore = 0;
+  cScore = 0;
+  pName = "Jobb";
+  cName = "Jeb";
+  gameEnd = false;
+}
+
+//start game state
 function startGame() {
   if (cScore === 0 && pScore === 0) {
     freeze = false;
@@ -212,7 +202,7 @@ function startGame() {
 
 //end game state
 function endGame() {
-  if (cScore === 1 || pScore === 1) {
+  if (cScore === 10 || pScore === 10) {
     gameEnd = true;
     freeze = false;
     vX = 0;
@@ -220,6 +210,7 @@ function endGame() {
   }
 }
 
+//function to control player
 function keyPressed() {
   
   if (key === "s" && freeze === false) {
@@ -243,11 +234,5 @@ function keyPressed() {
     console.log("help right");
     pV = 4;
   }
-  //demo for computer
-  if (key === "i") {
-    cV = -4;
-  }
-  if (key === "k") {
-    cV = 4;
-  }
+  
 }
